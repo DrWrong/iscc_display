@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="300">
     <title>Document</title>
     <script type="text/javascript" src="/static/zrender-master/doc/asset/js/esl/esl.js"></script>
 </head>
