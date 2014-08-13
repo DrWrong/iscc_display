@@ -50,7 +50,7 @@
             }});
 
             var flagwidth = 10;
-            var flagheight = 146;
+            var flagheight = 117;
             /*******************************************/
             // group a  1-3
             var flag1 = new ImageShape({
