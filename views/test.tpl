@@ -6,7 +6,7 @@
     <title>Document</title>
     <script type="text/javascript" src="/static/zrender-master/doc/asset/js/esl/esl.js"></script>
 </head>
-<body style="background: black">
+<body style="background: black; overflow: hidden">
     <!-- <canvas id="test" width="150", height="150"></canvas> -->
     <script type="text/javascript">
         require.config({
@@ -455,6 +455,6 @@
             zr.render();
         })
         </script>
-     <div id="Main" style="width:3500px;height:2143px; margin: auto;"></div>
+     <div id="Main" style="width:4000px;height:2143px; margin: auto;"></div>
 </body>
 </html>
