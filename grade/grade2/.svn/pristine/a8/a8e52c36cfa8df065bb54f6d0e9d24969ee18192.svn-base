@@ -1,0 +1,51 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+ 
+  <body>
+    <table>
+				<tr>
+					<td style="width:349px;">
+					<form action="userAction?a=addfile" method="post" ENCTYPE="multipart/form-data">
+						<table>
+							<tr>
+								<td >
+								flag文件:<input type="file" name="file"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+								<input type="submit" />
+								</td>
+							</tr>
+						</table>
+						</form>
+					</td>
+					<td style="width:349px;">
+					<form action="userAction?a=addflag" method="post">
+						<table>
+							<tr>
+								<td >
+								flag:<input type="text" name="flag"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+								<input type="submit" />
+								</td>
+							</tr>
+						</table>
+						</form>
+					</td>
+				</tr>
+				<tr>
+				
+				</tr>
+			</table>
+  </body>
+</html>

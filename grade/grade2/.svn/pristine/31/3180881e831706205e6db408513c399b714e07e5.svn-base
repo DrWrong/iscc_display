@@ -1,0 +1,23 @@
+package tsc.nsfocus.service;
+
+import java.util.List;
+
+import tsc.nsfocus.bean.NoticeBean;
+import tsc.nsfocus.dao.NoticeDao;
+
+public class NoticeService {
+	private NoticeDao noticeDao;
+	
+	public NoticeService(){
+		noticeDao = new NoticeDao();
+	}
+	public List<NoticeBean> getAll(){
+		return noticeDao.getAll();
+	}
+	public boolean addNotice(NoticeBean notice){
+		return noticeDao.addNotice(notice);
+	}
+	public void delNotice(int id){
+		noticeDao.deleteNoticeById(id);
+	}
+}

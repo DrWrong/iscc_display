@@ -1,0 +1,36 @@
+package tsc.nsfocus.service;
+
+import java.util.List;
+
+import tsc.nsfocus.bean.UserBean;
+import tsc.nsfocus.dao.UserDao;
+
+public class UserService {
+	private UserDao userDao;
+	private UserBean user;
+	
+	public UserService(){
+		userDao = new UserDao();
+	}
+	
+	public boolean addUser(UserBean user){
+		return userDao.addUser(user);
+	}
+	
+	public void delUser(Integer id){
+		userDao.delUserById(id);
+	}
+	
+	public void updateUser(UserBean user){
+		userDao.updateUser(user);
+	}
+	public UserBean getUser(String username,String password){
+		user = userDao.getByName(username);
+		if(user==null||!password.equals(user.getUsername()))
+			user = null;
+		return user;
+	}
+	public List<UserBean> getAll(){
+		return userDao.getAll();
+	}
+}

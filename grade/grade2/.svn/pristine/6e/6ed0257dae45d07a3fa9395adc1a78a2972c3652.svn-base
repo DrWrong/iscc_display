@@ -1,0 +1,46 @@
+package tsc.nsfocus.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import tsc.nsfocus.bean.AdminBean;
+import tsc.nsfocus.util.DBUtil;
+
+public class AdminDao {
+	
+	private Connection conn;
+	private DBUtil dbUtil;
+	
+	public AdminDao(){
+		dbUtil = new DBUtil();
+	}
+	
+	public boolean getUserByName(AdminBean user){
+		String username = user.getUsername();
+		String password = user.getPassword();
+		ResultSet rs = null;
+		boolean flag = false;
+		String sql = "select * from admin where username=? and password = ?";
+		try {
+			conn = dbUtil.getConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				flag = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (Exception e2) {
+				}
+			
+		}
+		return flag;
+	}
+}

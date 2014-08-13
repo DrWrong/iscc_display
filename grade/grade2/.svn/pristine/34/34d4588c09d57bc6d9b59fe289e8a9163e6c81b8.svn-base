@@ -1,0 +1,65 @@
+package tsc.nsfocus.action;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import tsc.nsfocus.bean.UserBean;
+import tsc.nsfocus.service.UserService;
+
+public class UserLoginAction extends HttpServlet{
+	
+	private static final long serialVersionUID = 1L;
+	private UserService userService;
+	private String forward="./user.jsp";
+	private String message="";
+	HttpSession session;
+	public void init() throws ServletException{
+		userService = new UserService();
+		super.init();
+	}
+	
+	public void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException{
+		session = request.getSession();
+		UserBean user = ((UserBean)session.getAttribute("team"));
+		if(user==null)
+			doLogin(request);
+		
+		session.setAttribute("message", message);
+		response.sendRedirect(forward);
+//		RequestDispatcher rd = request.getRequestDispatcher(forward);
+//		rd.forward(request, response);
+	}
+	
+	public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException{
+		doGet(request,response);
+	}
+	
+	private void doLogin(HttpServletRequest request) throws ServletException{
+		int rand = ("".equals(request.getParameter("rand"))?0:Integer.parseInt(request.getParameter("rand")));
+		if(session.getAttribute("rand")==null||Integer.parseInt(session.getAttribute("rand").toString())!=rand)
+		{
+			forward="./user.jsp";
+			message = "验证码错误！";
+			return;
+		}
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		UserBean user = userService.getUser(username, password);
+		
+		if(user==null){
+			forward="./user.jsp";
+			message = "用户名或密码错误！";
+		}
+		else{
+			forward="./main.jsp";
+			session.setAttribute("team", user);
+		}
+	}
+	
+
+}

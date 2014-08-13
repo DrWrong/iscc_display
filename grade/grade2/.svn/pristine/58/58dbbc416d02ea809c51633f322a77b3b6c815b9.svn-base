@@ -1,0 +1,181 @@
+package tsc.nsfocus.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import tsc.nsfocus.bean.TeamBean;
+import tsc.nsfocus.util.DBUtil;
+
+public class TeamDao {
+	private DBUtil dbUtil;
+	private Connection conn;
+	public TeamDao(){
+		dbUtil = new DBUtil();
+	}
+	/**
+	 * 按grade DESC排序
+	 * @return List
+	 */
+	public List<TeamBean> getAll(int flag){
+		
+		List<TeamBean> ls = new ArrayList<TeamBean>();
+		TeamBean tm ;
+		ResultSet rs = null;
+		String sql;
+		if(flag==1)
+			sql= "select * from team order by grade desc";
+		else
+			sql = "select * from team order by id asc";
+		try {
+			conn = dbUtil.getConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				tm =  new TeamBean();
+				tm.setId(rs.getInt("id"));
+				tm.setName(rs.getString("name"));
+				tm.setGrade(rs.getInt("grade"));
+				ls.add(tm);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (Exception e2) {
+				}
+		}
+		return ls;
+	}
+	
+	/**
+	 * 根据Id获取team信息
+	 * @param id
+	 * @return
+	 */
+	
+	public TeamBean getByid(Integer id){
+		String sql = "select * from team where id=?";
+		TeamBean team = null;
+		try {
+			conn=dbUtil.getConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next())
+			{
+				team = new TeamBean();
+				team.setId(rs.getInt(1));
+				team.setName(rs.getString(2));
+				team.setGrade(rs.getInt(3));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+		}
+		return team;
+	}
+	
+	
+	public boolean addTeam(TeamBean tm){
+		String sql = "insert into team(name,grade) values(?,?)";
+		boolean flag = false;
+		try {
+			conn = dbUtil.getConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, tm.getName());
+			pstmt.setInt(2, tm.getGrade());
+			int i = pstmt.executeUpdate();
+			if(i>0)
+				flag = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+		}
+		return flag;
+	}
+	public boolean updateTeam(TeamBean tm){
+		String sql = "update team set grade = ? where name=? and id=?";
+		boolean flag = false;
+		try {
+			conn = dbUtil.getConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tm.getGrade());
+			pstmt.setString(2, tm.getName());
+			pstmt.setInt(3, tm.getId());
+			int i = pstmt.executeUpdate();
+			if(i>0)
+				flag = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+		}
+		
+		return flag;
+	}
+	
+	
+	public boolean updateTeamByReward(Integer teamid,Integer reward){
+		String sql = "update team set grade = ? where  id=?";
+		boolean flag = false;
+		try {
+			conn = dbUtil.getConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			int i = pstmt.executeUpdate();
+			if(i>0)
+				flag = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+		}
+		
+		return flag;
+	}
+	
+	
+	public void deleteTeamById(int id){
+		String sql = "delete from team where id = ?";
+		try {
+			conn = dbUtil.getConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (Exception e2) {
+				}
+		}
+	}
+}

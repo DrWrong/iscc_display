@@ -1,0 +1,67 @@
+package tsc.nsfocus.service;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import tsc.nsfocus.bean.GradeBean;
+import tsc.nsfocus.bean.TeamBean;
+import tsc.nsfocus.dao.GradeDao;
+import tsc.nsfocus.dao.RewardDao;
+import tsc.nsfocus.dao.TeamDao;
+
+public class GradeService {
+	private GradeDao gradeDao;
+	
+	public GradeService(){
+		gradeDao = new GradeDao();
+	}
+	
+	/**
+	 * 通过action，将grade里面的Teamid，flagid，path初始化，如果flag不存在，
+	 * 则flagid为0;在添加之前要对该flag的排名初始化。
+	 */
+	public void addGrade(GradeBean grade){
+		// 如果flag已经存在，直接返回
+		
+		if(grade==null)
+			return;
+		Date rightNow = new Date();    
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		grade.setGtime(format.format(rightNow).toString());
+		int rank = gradeDao.getCountByFlagid(grade.getFlagid());
+		grade.setRank(rank);
+		//查询该grade是否已经存在
+		GradeBean g = gradeDao.getGradeByTeamidAndFlagid(grade.getTeamid(), grade.getFlagid());
+		if(g!=null&&g.getFlagid()!=0)
+			return ;
+		//上传正确flag，更新team的成绩
+		gradeDao.addGrade(grade);
+		RewardDao rewardDao = new RewardDao();
+		int reward = rewardDao.getByRank(rank).getReward();
+		if(grade.getFlagid()==0)
+			reward=0;
+		TeamDao teamDao = new TeamDao();
+		TeamBean tm = teamDao.getByid(grade.getTeamid());
+		tm.setGrade(tm.getGrade()+reward);
+		teamDao.updateTeam(tm);
+	}
+	
+	/**
+	 * 根据teamid返回该team所有的提交记录
+	 * @param id
+	 * @return
+	 */
+	
+	public List<GradeBean> getAllGradeByTeamId(Integer id){
+		return gradeDao.getTeamGrade(id);
+	}
+	/**
+	 * 获取所有的小组成绩信息
+	 * @return
+	 */
+	public List<GradeBean> getAll(){
+		return gradeDao.getAll();
+	}
+}

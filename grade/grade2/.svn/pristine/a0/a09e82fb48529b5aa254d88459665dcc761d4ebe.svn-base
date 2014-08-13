@@ -1,0 +1,15 @@
+package tsc.nsfocus.service;
+
+import tsc.nsfocus.bean.AdminBean;
+import tsc.nsfocus.dao.AdminDao;
+
+public class AdminService {
+	private AdminDao userDao;
+	
+	public AdminService(){
+		userDao = new AdminDao();
+	}
+	public boolean login(AdminBean user){
+		return userDao.getUserByName(user);
+	}
+}

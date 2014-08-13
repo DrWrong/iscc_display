@@ -1,0 +1,96 @@
+package tsc.nsfocus.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import tsc.nsfocus.bean.NoticeBean;
+import tsc.nsfocus.util.DBUtil;
+
+public class NoticeDao {
+	
+	private DBUtil dbUtil;
+	private Connection conn;
+	
+	public NoticeDao(){
+		dbUtil = new DBUtil();
+	}
+	/**
+	 * 按grade DESC排序
+	 * @return List
+	 */
+	
+	public List<NoticeBean> getAll(){
+		List<NoticeBean> ls = new ArrayList<NoticeBean>();
+		NoticeBean notice;
+		String sql = "select * from notice";
+		try {
+			conn = dbUtil.getConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()){
+				notice = new NoticeBean();
+				notice.setId(rs.getInt("id"));
+				notice.setTitle(rs.getString("title"));
+				notice.setContent(rs.getString("content"));
+				ls.add(notice);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (Exception e2) {
+				}
+			
+		}
+		
+		return ls;
+	}
+	
+	public boolean addNotice(NoticeBean notice){
+		String sql = "insert into notice(title,content) values(?,?)";
+		boolean flag = false;
+		try {
+			conn = dbUtil.getConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, notice.getTitle());
+			pstmt.setString(2, notice.getContent());
+			int i = pstmt.executeUpdate();
+			if(i>0)
+				flag = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+		}
+		return flag;
+	}
+	
+	
+	public void deleteNoticeById(int id){
+		String sql = "delete from notice where id = ?";
+		try {
+			conn = dbUtil.getConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (Exception e2) {
+				}
+		}
+	}
+}

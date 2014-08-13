@@ -1,0 +1,64 @@
+package tsc.nsfocus.action;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import tsc.nsfocus.bean.RewardBean;
+import tsc.nsfocus.service.RewardService;
+
+public class RewardAction extends HttpServlet{
+
+	private static final long serialVersionUID = 1L;
+	private RewardService rewardService;
+	private String forward = "./listreward.jsp";
+	private RewardBean reward=null;
+	public void init() throws ServletException{
+		rewardService = new RewardService();
+		super.init();
+	}
+	
+	public void destory(){
+		super.destroy();
+	}
+	public void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException{
+		String action = request.getParameter("a");
+		if(action==null||"".equals(action)){
+			
+		}else{
+			if("add".equals(action)){
+				reward = new RewardBean();
+				Integer rank = Integer.parseInt(request.getParameter("rank"));
+				Integer re = Integer.parseInt(request.getParameter("reward"));
+				reward.setRank(rank);
+				reward.setReward(re);
+				rewardService.addReward(reward);
+			}
+			if("update".equals(action)){
+				reward = new RewardBean();
+				Integer id = Integer.parseInt(request.getParameter("id"));
+				Integer re = Integer.parseInt(request.getParameter("reward"));
+				reward.setId(id);
+				reward.setReward(re);
+				rewardService.updateReward(reward);
+			}
+			if("del".equals(action)){
+				Integer id = Integer.parseInt(request.getParameter("id"));
+				rewardService.delReward(id);
+			}
+//			if("list".equals(action)){
+//				
+//			}
+		}
+		
+		RequestDispatcher rd = request.getRequestDispatcher(forward);
+		rd.forward(request, response);
+	}
+	public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException{
+		doGet(request,response);
+	}
+}

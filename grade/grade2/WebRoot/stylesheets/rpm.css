@@ -1,0 +1,250 @@
+/*
+RPM Music Blueprint-based layout
+HFWD Chapter 4
+http://headfirslabs.com/books/hfwd/ch04/stylesheets/rpm.css
+*/
+
+body {
+	margin: 0;
+	padding: 0;
+	background: #fbf9ef url(../images/header_bg.gif) repeat-x top;
+}
+
+p, ul, li, h1, h2, h3, h4 {
+	margin: 0;
+}
+
+span{
+	padding:5px 0 5px 40px;
+}
+
+h3 {
+	padding:0;
+	font-weight: bold;	
+}
+
+/*
+This rule with globally remove all bullets
+unordered lists.
+*/
+ul {
+	list-style-type: none;
+}
+
+#nav {
+	height: 50px;
+}
+
+#nav ul {
+	float:right;
+	margin-right:40px;
+}
+
+#nav ul li {
+	float: left;
+	padding: 15px 5px;
+}
+
+#nav ul li a {
+	color: #fff;
+	text-decoration: none;
+	padding: 15px;
+	font-size: 14px;
+}
+
+/* This will create a nice block-hover effect */
+
+#nav ul li a:hover {
+	text-decoration:underline;
+	
+}
+
+
+#mast img {
+	float: right;
+}
+
+#header h1 {
+	padding: 10px 0 0 0;
+	font-size: x-large;
+	font-weight: bold;
+	color:#fff;
+}
+
+#header h2 {
+	margin: 8px 0 0 0;
+	text-align: center;
+	color: #fff;
+	font-weight: bold;
+}
+
+#header h2 em {
+	color: #ccc;
+}
+
+#content, #sidebar {
+	margin: 40px 0 20px 0;
+}
+
+#content h4 {
+	font-weight: bold;
+	font-size: 1.4em;
+}
+
+#content li p {
+	margin: 0 0 70px 0;
+}
+
+#sidebar{
+	margin:0;
+	height:300px;
+}
+
+#sidebar p {
+	clear:both;
+	margin: 0 0 10px 10px;
+}
+
+#sidebar a {
+	text-decoration:none;
+	color:#000;
+	width:150px;
+	height:31px;
+	
+	font-size:18px;
+}
+
+#sidebar a:hover {
+	color:#00F;
+}
+	
+#sidebar-content{
+	background:#FFF;
+	width:260px;
+	height:280px;
+}	
+	
+#sidebar-content p{
+	border-bottom:#CCC 1px dashed;
+	font-size:12px;
+}
+
+#footer {
+	border-top: 5px solid #928977;
+	background: #a9a294;
+	margin-top:10px;
+}
+
+#footer p {
+	margin: 0 auto;
+	padding: 5px;
+	width: 950px;
+	font-size: 0.8em;
+	font-weight: bold;
+	text-align: center;
+}
+
+#history{
+	width:598px;
+	height:300px;
+	background:#FFF;
+	border:1px solid #CCC;
+	margin-bottom:10px;
+}
+
+#history img{
+	margin:0;
+	width:598px;
+	height:30px;
+	
+}
+
+#tool{
+	clear:both;
+	height:20px;
+	width:260px;
+	background:#FFF;
+}
+
+.tm00 img{
+	width:630px;
+	height:30px;
+}
+
+
+.tm11{
+	position:relative;
+	float:left;
+	width:130px;
+	height:34px;
+	margin-top:40px;
+}
+
+.tm11 img{
+	width:130px;
+	height:34px;
+}
+
+.tm22{
+	position:absolute;
+	left:0;
+	top:0;
+	float:left;
+	width:130px;
+	height:34px;
+	font-size:14px;
+	font-weight:bold;
+}
+
+.alpha{
+	opacity:0.5;
+}
+
+.button{
+	float:right;
+	margin-left:15px;
+	width:60px;
+}
+
+#test1{
+	margin:10px 0 200px 30px;
+}
+
+#content{
+	width:600px;
+}
+
+#flag{
+	margin-left:6px;
+	width:400px;
+}
+#divLoginWindow
+        {
+        	display:none;
+        	font-size:12px;
+            position: absolute;
+            width: 400px;
+            height: 210px;
+            border: #bfe5b3 solid 1px;
+            z-index: 200;
+            background: #fff;
+        }
+
+#greybackground
+        {
+            background: #000;
+            display: block;
+            z-index: 100;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+#divLoginWindow a
+ {
+	border: #bfe5b3 solid 1px;
+     cursor:pointer;
+ }
+ #divLoginWindow td{
+ 	text-align:right;
+ }

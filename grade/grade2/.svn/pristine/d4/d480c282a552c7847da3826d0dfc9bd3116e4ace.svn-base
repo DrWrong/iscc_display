@@ -1,0 +1,52 @@
+package tsc.nsfocus.service;
+
+import java.util.List;
+
+import tsc.nsfocus.bean.FlagBean;
+import tsc.nsfocus.dao.FlagDao;
+
+public class FlagService {
+	private FlagDao flagDao;
+	
+	public FlagService(){
+		flagDao = new FlagDao();
+	}
+	/**
+	 * 管理员后台添加flag信息
+	 * @param flag
+	 * @return true or flase
+	 */
+	public boolean addFlag(FlagBean flag){
+		return flagDao.addFlag(flag);
+	}
+	/**
+	 * 根据id删除flag信息（未实现删除该flag同时删除grade信息的功能）
+	 * @param id
+	 */
+	public void delFlagById(Integer id){
+		flagDao.delFlagById(id);
+	}
+	/**
+	 * 更新flag的md5或值
+	 * @param flag
+	 * @return
+	 */
+	public boolean updateFlag(FlagBean flag){
+		return flagDao.updateFlag(flag);
+	}
+	public List<FlagBean> getAll(){
+		return flagDao.getAllFlag();
+	}
+	/**
+	 * 在GradeAction中，获取flag的id信息
+	 * @param name
+	 * @return
+	 */
+	public FlagBean getByName(String name){
+		return flagDao.getFlagByName(name);
+	}
+	
+	public FlagBean getById(int id){
+		return flagDao.getFlagById(id);
+	}
+}

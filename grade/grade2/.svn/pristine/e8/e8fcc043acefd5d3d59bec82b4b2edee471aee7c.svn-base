@@ -1,0 +1,92 @@
+package tsc.nsfocus.action;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import tsc.nsfocus.bean.TeamBean;
+import tsc.nsfocus.service.TeamService;
+
+public class TeamAction extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private String message;
+	private String forward = "./listteam.jsp";
+	private TeamService teamService;
+	public void destroy() {
+		super.destroy();
+	}
+
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		String action = (String)request.getParameter("a");
+		if(action==null||"".equals(action)){
+			RequestDispatcher rd = request.getRequestDispatcher(forward);
+			rd.forward(request, response);
+		}else{
+			if("add".equals(action)){
+				String name = request.getParameter("name");
+				int grade = Integer.parseInt(request.getParameter("grade"));
+				if(addTeam(name, grade))
+					message = "添加小组成功";
+				
+			}
+			if("update".equals(action)){
+				TeamBean tm = new TeamBean();
+				tm.setId(Integer.parseInt(request.getParameter("id")));
+				tm.setName(request.getParameter("name"));
+				tm.setGrade(Integer.parseInt(request.getParameter("grade")));
+				if(updateTeam(tm))
+					message = "修改成功！";
+				else
+					message = "修改失败！";
+			}
+			if("delete".equals(action)){
+				int id = Integer.parseInt(request.getParameter("id"));
+				deleteById(id);
+			}
+			request.setAttribute("message", message);
+			RequestDispatcher rd = request.getRequestDispatcher(forward);
+			rd.forward(request, response);
+		}
+		
+	}
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+	public void init() throws ServletException {
+		teamService = new TeamService();
+		super.init();
+	}
+	
+	private boolean addTeam(String name,int grade){
+		boolean flag = false;
+		
+		if(name!=null&&!"".equals(name)){
+			TeamBean tm = new TeamBean();
+			tm.setName(name);
+			tm.setGrade(grade);
+			flag = teamService.addTeam(tm);
+		}
+		return flag;
+	}
+
+	private boolean updateTeam(TeamBean tm){
+		boolean flag = false;
+		if(tm.getName()!=null&&!"".equals(tm.getName())){
+			flag = teamService.updateTeam(tm);
+		}
+		return flag;
+	}
+	
+	private void deleteById(int id){
+		teamService.deleteTeam(id);
+	}
+}

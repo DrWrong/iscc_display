@@ -1,0 +1,75 @@
+package tsc.nsfocus.action;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import tsc.nsfocus.bean.NoticeBean;
+import tsc.nsfocus.service.NoticeService;
+
+public class NoticeAction extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private NoticeService noticeService;
+	private String forward = "./listnotice.jsp";
+	private String message;
+	
+	public void destroy() {
+		super.destroy();
+	}
+	
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		String action = request.getParameter("a");
+		if(action==null||"".equals(action)){
+			RequestDispatcher rd = request.getRequestDispatcher(forward);
+			rd.forward(request, response);
+		}else{
+			if("add".equals(action)){
+				String title = request.getParameter("title");
+				String content = request.getParameter("content");
+				if(addNotice(title, content))
+					message = "添加公告成功";
+			}
+			if("del".equals(action)){
+				int id = Integer.parseInt(request.getParameter("id"));
+				delById(id);
+			}
+			request.setAttribute("message", message);
+			RequestDispatcher rd = request.getRequestDispatcher(forward);
+			rd.forward(request, response);
+		}
+		
+	}
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
+	
+	public void init() throws ServletException {
+		noticeService = new NoticeService();
+		super.init();
+	}
+	
+	private boolean addNotice(String title,String content){
+		boolean flag = false;
+		if(title==null||"".equals(title)||content==null||"".equals(content))
+			;
+		else{
+			NoticeBean notice = new NoticeBean();
+			notice.setTitle(title);
+			notice.setContent(content);
+			flag = noticeService.addNotice(notice);
+		}
+		return flag;
+	}
+	
+	private void delById(int id){
+		noticeService.delNotice(id);
+	}
+	
+}

@@ -1,0 +1,82 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="tsc.nsfocus.service.*,tsc.nsfocus.bean.*"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+	+ request.getServerName() + ":" + request.getServerPort()
+	+ path + "/";
+	
+	NoticeService noticeService = new NoticeService();
+	List<NoticeBean> lsnotice = new ArrayList<NoticeBean>();
+	lsnotice = noticeService.getAll();
+%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>公告——成绩公布系统</title>
+<meta http-equiv="refresh" content="60" />
+<link rel="stylesheet" type="text/css" href="style/style.css" />
+<script type="text/javascript" src="style/mootools-yui-compressed.js">
+	
+</script>
+<style type="text/css"></style>
+<script type="text/javascript" src="./style/jbscript.js">
+	
+</script>
+
+<link rel="stylesheet" media="screen" type="text/css"
+	href="./style/style_js.css" />
+</head>
+<body>
+	<div id="container">
+		<div id="header">
+			<h1>
+				<img src="./style/logo.png" alt="" /><strong>渗透</strong>比赛
+			</h1>
+			<div id="info">— 成绩公布系统</div>
+		</div>
+		
+		<div id="content">
+
+			<div id="secondary">
+				<h3 ><a href="./main.jsp" style="color:white;">成绩</a>&nbsp;|&nbsp;<a href="notice.jsp" style="color:white;">公告</a></h3>
+				<div id="jb_comments">
+					<table width="100%" style=" border-style:dotted; border-width:thin">
+						<tr align="center">
+							<td width="33%">标题</td>
+							<td width="67%">内容</td>
+						</tr>
+						<%
+							if (lsnotice != null) {
+								int i = 1;
+								for (NoticeBean notice : lsnotice) {
+						%>
+						<tr align="center">
+							<td width="33%"><%=notice.getTitle()%></td>
+							<td width="67%"><%=notice.getContent()%></td>
+						</tr>
+
+						<%
+							i++;
+								}
+							}
+						%>
+					</table>
+				</div>
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+		<div id="updiv">
+			
+		</div>
+		<div id="footer">
+			<p></p>
+			<center>Copyright © 2012, TSC, All Rights Reserved</center>
+			<p></p>
+		</div>
+	</div>
+
+
+</body>
+</html>

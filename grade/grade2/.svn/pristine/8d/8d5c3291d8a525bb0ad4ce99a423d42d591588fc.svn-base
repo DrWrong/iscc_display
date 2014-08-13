@@ -1,0 +1,37 @@
+package tsc.nsfocus.service;
+
+import java.util.List;
+
+import tsc.nsfocus.bean.TeamBean;
+import tsc.nsfocus.dao.TeamDao;
+
+
+public class TeamService {
+	private TeamDao teamDao;
+	
+	public TeamService(){
+		teamDao = new TeamDao();
+	}
+	
+	/**
+	 * 
+	 * @param flag 如果flag是1，则按照成绩排序，否则，按照id排序
+	 * @return
+	 */
+	public List<TeamBean> getAll(int flag){
+		return teamDao.getAll(flag);
+	}
+	public TeamBean getTeamById(int id){
+		return teamDao.getByid(id);
+	}
+	public boolean addTeam(TeamBean tm){
+		return teamDao.addTeam(tm);
+	}
+	
+	public boolean updateTeam(TeamBean tm){
+		return teamDao.updateTeam(tm);
+	}
+	public void deleteTeam(int id){
+		teamDao.deleteTeamById(id);
+	}
+}

@@ -1,0 +1,184 @@
+package tsc.nsfocus.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import tsc.nsfocus.bean.FlagBean;
+import tsc.nsfocus.util.DBUtil;
+
+public class FlagDao {
+	private DBUtil dbUtil;
+	private Connection conn;
+	
+	public FlagDao(){
+		dbUtil=new DBUtil();
+	}
+	
+	
+	public boolean addFlag(FlagBean flag){
+		String sql="insert into flag(name,value) values(?,?)";
+		boolean f=false;
+		try {
+			conn=dbUtil.getConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, flag.getName());
+			pstmt.setString(2, flag.getValue());
+			int i = pstmt.executeUpdate();
+			if(i>0)
+				f=true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (Exception e2) {
+//					e2.printStackTrace();
+				}
+		}
+		
+		return f;
+	}
+	
+	public void delFlagById(Integer id){
+		String sql="delete from flag where id=?";
+		try {
+			conn=dbUtil.getConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id.intValue());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (Exception e2) {
+				}
+		}
+	}
+	
+	public boolean updateFlag(FlagBean flag){
+		boolean f=false;
+		String sql="update flag set name=? where id=?";
+		try {
+			conn=dbUtil.getConn();
+			PreparedStatement pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, flag.getName());
+			pstmt.setInt(2, flag.getId());
+			int i=pstmt.executeUpdate();
+			if(i>0)
+				f=true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (Exception e2) {
+				}
+		}
+		return f;
+	}
+	/**
+	 * 用于前台显示时，根据id显示flag的详细信息
+	 * @param id
+	 * @return
+	 */
+	
+	public FlagBean getFlagById(Integer id){
+		FlagBean flag = new FlagBean();
+		String sql="select name from flag where id=?";
+		try {
+			conn=dbUtil.getConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id.intValue());
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()){
+				flag.setId(id);
+				flag.setName(rs.getString(1));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (Exception e2) {
+				}
+		}
+		return flag;
+	}
+	/**
+	 * 用于添加grade时，通过md5获取该flag是否存在
+	 * @param name
+	 * @return
+	 */
+	public FlagBean getFlagByName(String name){
+		FlagBean flag = null;
+		String sql="select * from flag where name=?";
+		try {
+			conn=dbUtil.getConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()){
+				flag = new FlagBean();
+				flag.setId(rs.getInt(1));
+				flag.setName(rs.getString(2));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (Exception e2) {
+				}
+		}
+		return flag;
+	}
+	/**
+	 * 管理员界面管理flag信息
+	 * @return
+	 */
+	public List<FlagBean> getAllFlag(){
+		List<FlagBean> list = new ArrayList<FlagBean>();
+		FlagBean flag=null;
+		Statement stmt = null;
+		String sql="select * from flag";
+		try {
+			conn=dbUtil.getConn();
+			stmt= conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()){
+				flag=new FlagBean();
+				flag.setId(rs.getInt(1));
+				flag.setName(rs.getString(2));
+				flag.setValue(rs.getString(3));
+				list.add(flag);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(stmt!=null)
+				try {
+					stmt.close();
+				} catch (Exception e2) {
+				}
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (Exception e2) {
+				}
+				
+		}
+		
+		return list;
+	}
+	
+}

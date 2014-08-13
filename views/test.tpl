@@ -46,7 +46,7 @@
                     // width: 1096,
                     // height: 1096,
                     color : 'rgba(0, 255, 0, 1)',
-                    image: "/static/ditu2.png",
+                    image: "/static/ditu3.png",
             }});
 
             var flagwidth = 10;
@@ -62,7 +62,7 @@
                     image: "/static/" + flag[0]
                 },
                 invisible: false,
-                position: [898 -flagwidth,1161- flagheight]
+                position: [1104 -flagwidth,1280- flagheight]
                 // hoverable: false,
             });
 
@@ -75,7 +75,7 @@
                     image: "/static/" + flag[1]
                 },
                 // invisible: false,
-                position: [874 -flagwidth, 1293- flagheight]
+                position: [1326 -flagwidth, 1401- flagheight]
             });
 
             var flag3 = new ImageShape({
@@ -87,7 +87,7 @@
                     image: "/static/" + flag[2]
                 },
                 invisible: false,
-                position: [720 - flagwidth, 1236 - flagheight]
+                position: [1574 - flagwidth, 1253 - flagheight]
             });
             ////////////////////////////////////////////
             /* group b 4-6 */
@@ -100,7 +100,7 @@
                     image: "/static/" + flag[3]
                 },
                 invisible: false,
-                position: [931 - flagwidth, 1417 -  flagheight]
+                position: [1619 - flagwidth, 1600 -  flagheight]
             });
 
             var flag5 = new ImageShape({
@@ -112,7 +112,7 @@
                     image: "/static/" + flag[4]
                 },
                 invisible: false,
-                position: [1055 - flagwidth, 1448 - flagheight]
+                position: [1751 - flagwidth, 1458 - flagheight]
             });
             var flag6 = new ImageShape({
                 zlevel: 1,
@@ -123,7 +123,7 @@
                     image: "/static/" + flag[5]
                 },
                 invisible: false,
-                position: [1162 - flagwidth, 1439 - flagheight]
+                position: [1818 - flagwidth, 1596 - flagheight]
             });
             /////////////////////////////////////
             //group c 7-9
@@ -137,7 +137,7 @@
                     image: "/static/" + flag[6]
                 },
                 invisible: false,
-                position: [1349 - flagwidth, 1482 - flagheight]
+                position: [2045 - flagwidth, 1677 - flagheight]
             });
 
             var flag8 = new ImageShape({
@@ -149,7 +149,7 @@
                     image: "/static/" + flag[7]
                 },
                 invisible: false,
-                position: [1502 - flagwidth, 1585 - flagheight]
+                position: [2185 - flagwidth, 1505 - flagheight]
             });
 
             var flag9 = new ImageShape({
@@ -161,7 +161,7 @@
                     image: "/static/" + flag[8]
                 },
                 invisible: false,
-                position: [1511 - flagwidth, 1449 -flagheight]
+                position: [2300 - flagwidth, 1789 -flagheight]
             });
             //////////////////
             // group c 10-12
@@ -175,7 +175,7 @@
                     image: "/static/" + flag[9]
                 },
                 invisible: false,
-                position: [1678 - flagwidth, 1370 - flagheight]
+                position: [2419 - flagwidth, 1364 - flagheight]
             });
 
             var flag11 = new ImageShape({
@@ -187,7 +187,7 @@
                     image: "/static/" + flag[10]
                 },
                 invisible: false,
-                position: [1810 - flagwidth, 1314 - flagheight]
+                position: [2542 - flagwidth, 1574 - flagheight]
             });
 
 
@@ -201,7 +201,7 @@
                     image: "/static/" + flag[11]
                 },
                 invisible: false,
-                position: [1804 - flagwidth, 1175 - flagheight]
+                position: [2770 - flagwidth, 1394 - flagheight]
             });
 
             //////////////
@@ -217,7 +217,7 @@
                     image: "/static/" + flag[12]
                 },
                 invisible: false,
-                position: [1702 - flagwidth, 938 -flagheight]
+                position: [2568 - flagwidth, 1014 -flagheight]
             });
 
             var flag14 = new ImageShape({
@@ -229,7 +229,7 @@
                     image: "/static/" + flag[13]
                 },
                 invisible: false,
-                position: [1924 - flagwidth, 884 - flagheight],
+                position: [2946 - flagwidth, 748 - flagheight],
 
             });
             var flag15 = new ImageShape({
@@ -241,7 +241,7 @@
                     image: "/static/" + flag[14]
                 },
                 invisible: false,
-                position: [1758 - flagwidth, 741 - flagheight],
+                position: [2656 - flagwidth, 616 - flagheight],
 
             });
             ///////////////////////
@@ -256,7 +256,7 @@
                     image: "/static/" + flag[15]
                 },
                 invisible: false,
-                position: [1469 - flagwidth, 961 - flagheight],
+                position: [2269 - flagwidth, 854 - flagheight],
 
             });
 
@@ -269,7 +269,7 @@
                     image: "/static/" + flag[16]
                 },
                 invisible: false,
-                position: [1373 - flagwidth, 902 - flagheight],
+                position: [1993 - flagwidth, 940 - flagheight],
 
             });
 
@@ -282,7 +282,7 @@
                     image: "/static/" + flag[17]
                 },
                 invisible: false,
-                position: [1277 - flagwidth, 868 - flagheight],
+                position: [1960 - flagwidth, 730 - flagheight],
 
             });
 
@@ -298,7 +298,7 @@
                     image: "/static/" + flag[18]
                 },
                 invisible: false,
-                position: [979 - flagwidth, 960 - flagheight],
+                position: [1528 - flagwidth, 1017 - flagheight],
 
             });
 
@@ -311,7 +311,7 @@
                     image: "/static/" + flag[19]
                 },
                 invisible: false,
-                position: [894 - flagwidth, 861 - flagheight],
+                position: [1375 - flagwidth, 711 - flagheight],
 
             });
 
@@ -324,7 +324,7 @@
                     image: "/static/" + flag[20]
                 },
                 invisible: false,
-                position: [728 - flagwidth, 1012 - flagheight],
+                position: [1188 - flagwidth, 928 - flagheight],
 
             });
 
@@ -340,7 +340,7 @@
                     image: "/static/" + flag[21]
                 },
                 invisible: false,
-                position: [1164 - flagwidth, 1143 - flagheight],
+                position: [1857 - flagwidth, 1072 - flagheight],
 
             });
 
@@ -353,7 +353,7 @@
                     image: "/static/" + flag[22]
                 },
                 invisible: false,
-                position: [1248 - flagwidth, 1078 - flagheight],
+                position: [1914 - flagwidth, 1195 - flagheight],
 
             });
 
@@ -366,7 +366,7 @@
                     image: "/static/" + flag[23]
                 },
                 invisible: false,
-                position: [1357 - flagwidth, 1123 - flagheight],
+                position: [2082 - flagwidth, 1108 - flagheight],
 
             });
 
@@ -379,7 +379,7 @@
                     image: "/static/" + flag[24]
                 },
                 invisible: false,
-                position: [1246 - flagwidth, 1178 - flagheight],
+                position: [2056 - flagwidth, 1283 - flagheight],
 
             });
 
@@ -393,7 +393,7 @@
                     image: "/static/" + flag[25]
                 },
                 invisible: false,
-                position: [1294 - flagwidth, 1261 - flagheight],
+                position: [2033 - flagwidth, 1372 - flagheight],
 
             });
 
@@ -406,7 +406,7 @@
                     image: "/static/" + flag[26]
                 },
                invisible: false,
-                position: [1445 - flagwidth, 1246 - flagheight],
+                position: [2208 - flagwidth, 1284 - flagheight],
 
             });
 
@@ -419,7 +419,7 @@
                     image: "/static/" + flag[27]
                 },
                invisible: false,
-                position: [1489 - flagwidth, 1163 - flagheight],
+                position: [2312 - flagwidth, 1118 - flagheight],
 
             });
             // rander
@@ -455,6 +455,6 @@
             zr.render();
         })
         </script>
-     <div id="Main" style="width:2500px;height:2143px; margin: auto;"></div>
+     <div id="Main" style="width:3500px;height:2143px; margin: auto;"></div>
 </body>
 </html>

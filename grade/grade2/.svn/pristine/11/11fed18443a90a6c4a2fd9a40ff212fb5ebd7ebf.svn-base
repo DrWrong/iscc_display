@@ -1,0 +1,61 @@
+package tsc.nsfocus.bean;
+
+
+
+public class GradeBean {
+	/**
+	 * 该对象可以理解为是一个log对象，用户记录每对提交flag的信息
+	 */
+	private Integer id;
+	private Integer teamid;
+	private Integer flagid;
+	private Integer rank;
+	private String	gtime;
+	private String 	path;
+	private Integer check;
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getTeamid() {
+		return teamid;
+	}
+	public void setTeamid(Integer teamid) {
+		this.teamid = teamid;
+	}
+	public Integer getFlagid() {
+		return flagid;
+	}
+	public void setFlagid(Integer flagid) {
+		this.flagid = flagid;
+	}
+	public Integer getRank() {
+		return rank;
+	}
+	public void setRank(Integer rank) {
+		this.rank = rank;
+	}
+	public String getGtime() {
+		return gtime;
+	}
+	public void setGtime(String gtime) {
+		
+		this.gtime = gtime;
+	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
+	public Integer getCheck() {
+		return check;
+	}
+	public void setCheck(Integer check) {
+		this.check = check;
+	}
+	
+}

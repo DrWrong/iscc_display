@@ -1,0 +1,88 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>结果</title>
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"  />
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.min.css"  />
+<link rel="stylesheet" type="text/css" href="bootstrap/css/self.css"  />
+<!--[if lt IE 9]>
+      <script src="bootstrap/js/html5.js"></script>
+      <script src="bootstrap/js/respond.min.js"></script>
+<![endif]-->
+
+</head>
+
+<body>
+	<!--nav ======================================= -->
+	<div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" style="color:white;" href="#">英雄榜</a>
+        </div>
+        <%if(session.getAttribute("user")==null){ %>
+        <form class="navbar-form navbar-right" action="login.html" method="post">
+            <div class="form-group">
+              <input type="text" placeholder="Userame" class="form-control" name="name">
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control" name="password">
+            </div>
+            <button type="submit" class="btn btn-success">Sign in</button>
+          </form>
+          <%}else{ %>
+          <p class="navbar-text pull-right">当前用户：<%=session.getAttribute("user") %></p>
+          <%} %>
+        <!--/.navbar-collapse -->
+      </div>
+    </div>
+    <!--container==================================-->
+    <div class="container">
+    	<p class="text-left">共有小组:<strong class="text-danger">12个</strong></p>
+    	<table class="table table-bordered table-hover table-striped">
+        	<thead>
+        	<th class="col-md-4">名次</th>
+            <th class="col-md-4">组名</th>
+            <th class="col-md-4">成绩</th>
+            </thead>
+            <tbody>
+        	<tr>
+            <td>1</td>
+            <td>1</td>
+            <td>100</td>
+            </tr>
+            <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>100</td>
+            </tr>
+            <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>100</td>
+            </tr>
+            <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>100</td>
+            </tr>
+            </tbody>
+        </table>
+        <hr class="soften">
+        <form class="form-horizontal" method="post" action="#">
+        <div class="input-group">
+        <input type="text" class="form-control"  placeholder="输入flag的MD5" required="required" autofocus="autofocus">
+      	<button type="submit" class="input-group-addon">Sign in</button>
+      </div>
+        
+        </form>
+    </div>
+    <!--footer=====================================-->
+	<!-- javascript===================================-->
+    <script type="text/javascript" src="bootstrap/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

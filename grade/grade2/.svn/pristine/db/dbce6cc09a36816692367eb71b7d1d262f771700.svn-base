@@ -1,0 +1,67 @@
+package tsc.nsfocus.action;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import tsc.nsfocus.bean.FlagBean;
+import tsc.nsfocus.service.FlagService;
+
+public class FlagAction extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private String message;
+	private FlagService flagService;
+	private String forward = "./listflag.jsp";
+
+	public void init() throws ServletException {
+		flagService = new FlagService();
+		super.init();
+	}
+
+	public void destroy() {
+		super.destroy();
+	}
+
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String action = (String)request.getParameter("a");
+		FlagBean flag=null;
+		if(action==null||"".equals(action)){
+			RequestDispatcher rd = request.getRequestDispatcher(forward);
+			rd.forward(request, response);
+		}else{
+			if("add".equals(action)){
+				String name = request.getParameter("name");
+				flag = new FlagBean();
+				flag.setName(name);
+				flagService.addFlag(flag);
+					
+			}else 
+			if("update".equals(action)){
+				Integer id = Integer.parseInt(request.getParameter("id"));
+				String name = request.getParameter("name");
+				flag = new FlagBean();
+				flag.setId(id);
+				flag.setName(name);
+				flagService.updateFlag(flag);
+					
+			}else
+				if("delete".equals(action)){
+					Integer id = Integer.parseInt(request.getParameter("id"));
+					flagService.delFlagById(id);
+				}
+			request.setAttribute("message", message);
+			RequestDispatcher rd = request.getRequestDispatcher(forward);
+			rd.forward(request, response);
+		}
+	}
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
+}

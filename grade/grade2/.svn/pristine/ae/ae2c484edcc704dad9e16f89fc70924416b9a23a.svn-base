@@ -1,0 +1,117 @@
+package tsc.nsfocus.action;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import tsc.nsfocus.bean.AdminBean;
+import tsc.nsfocus.bean.UserBean;
+import tsc.nsfocus.service.AdminService;
+import tsc.nsfocus.service.UserService;
+
+public class AdminAction extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private String message="";
+	private AdminService adminService;
+	private String forward = "./index.jsp";
+	private UserService userService;
+	public void destroy() {
+		super.destroy();
+	}
+
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String action = (String)request.getParameter("a");
+		if(action==null||"".equals(action)){
+			RequestDispatcher rd = request.getRequestDispatcher(forward);
+			rd.forward(request, response);
+		}else{
+			if("login".equals(action)){
+				String username = (String) request.getParameter("username");
+				String password = (String) request.getParameter("password");
+				AdminBean user = new AdminBean();
+				user.setPassword(password);
+				user.setUsername(username);
+				if(login(user)){
+					HttpSession session = request.getSession();
+					session.setAttribute("admin", user);
+				}
+			}
+			if("addUser".equals(action)){
+				if(addUser(request))
+					message = "创建成功";
+				forward="./admin/files/listuser.jsp";
+			}
+			if("delUser".equals(action)){
+				delUser(request);
+				forward="./admin/files/listuser.jsp";
+			}
+			if("upUser".equals(action)){
+				updateUser(request);
+				forward = "./admin/files/listuser.jsp";
+			}
+			request.setAttribute("message", message);
+//			RequestDispatcher rd = request.getRequestDispatcher(forward);
+			response.sendRedirect(forward);
+		}
+		
+	}
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+	public void init() throws ServletException {
+		adminService = new AdminService();
+		userService= new UserService();
+		super.init();
+	}
+	
+	private boolean login(AdminBean user){
+		boolean flag = false;
+		if("".equals(user.getUsername())||"".equals(user.getPassword())){
+			message = "用户名或密码不能为空！";
+			forward = "./login.jsp";
+		}else if(adminService.login(user)){
+			forward = "./admin/index.jsp";
+			flag = true;
+		}else{
+			forward = "./login.jsp";
+			message = "用户名或密码不正确！";
+		}
+		return flag;
+	}
+	
+	private boolean addUser(HttpServletRequest request) throws ServletException{
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		Integer teamid = Integer.parseInt(request.getParameter("teamid"));
+		if(teamid==0)
+			return false;
+		UserBean user = new UserBean();
+		user.setPassword(password);
+		user.setUsername(username);
+		user.setTeamid(teamid);
+		return userService.addUser(user);
+	}
+	private void delUser(HttpServletRequest request) throws ServletException{
+		Integer id = Integer.parseInt(request.getParameter("id"));
+		userService.delUser(id);
+	}
+	private void updateUser(HttpServletRequest request) throws ServletException{
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		Integer id = Integer.parseInt(request.getParameter("id"));
+		UserBean user = new UserBean();
+		user.setId(id);
+		user.setUsername(username);
+		user.setPassword(password);
+		userService.updateUser(user);
+	}
+}

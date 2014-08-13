@@ -1,0 +1,186 @@
+package tsc.nsfocus.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import tsc.nsfocus.bean.GradeBean;
+import tsc.nsfocus.util.DBUtil;
+
+
+public class GradeDao {
+	private DBUtil dbUtil = null;
+	private Connection conn = null;
+
+	public GradeDao() {
+		dbUtil = new DBUtil();
+	}
+	
+	public boolean addGrade(GradeBean grade){
+		boolean flag=false;
+		String sql="insert into grade(teamid,flagid,rank,gtime,path) values(?,?,?,?,?)";
+		try {
+			conn=dbUtil.getConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, grade.getTeamid());
+			pstmt.setInt(2, grade.getFlagid());
+			pstmt.setInt(3,grade.getRank());
+			pstmt.setString(4, grade.getGtime());
+			pstmt.setString(5, grade.getPath());
+//			pstmt.setInt(6, grade.getCheck());
+			int i =pstmt.executeUpdate();
+			if(i>0)
+				flag=true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (Exception e2) {
+				}
+		}
+		return flag;
+	}
+	
+	public void delGrade(){
+		
+	}
+	
+	public boolean update(){
+		
+		return false;
+	}
+	
+	/**
+	 * 查找某个小组，并根据gtime降序排列
+	 */
+	public List<GradeBean> getTeamGrade(Integer teamid){
+		List<GradeBean> ls = new ArrayList<GradeBean>();
+		String sql="select * from grade where teamid=?";
+		GradeBean grade = null;
+		try {
+			conn=dbUtil.getConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, teamid.intValue());
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()){
+				grade=new GradeBean();
+				grade.setId(rs.getInt(1));
+				grade.setTeamid(rs.getInt(2));
+				grade.setFlagid(rs.getInt(3));
+				grade.setRank(rs.getInt(4));
+				grade.setGtime(rs.getString(5));
+				grade.setPath(rs.getString(6));
+				grade.setCheck(rs.getInt(7));
+				ls.add(grade);
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(conn!=null){
+				try {
+					conn.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+		return ls;
+	}
+	
+	/**
+	 * 根据小组id和flagid查找该flag是否提交，如果已存在，则不用在进行提交，避免排名混乱。
+	 */
+	public GradeBean getGradeByTeamidAndFlagid(Integer teamid,Integer flagid){
+		String sql="select * from grade where teamid=? and flagid=?";
+		GradeBean grade=null;
+		try {
+			conn=dbUtil.getConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, teamid.intValue());
+			pstmt.setInt(2, flagid.intValue());
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()){
+				grade = new GradeBean();
+				grade.setId(rs.getInt(1));
+				grade.setTeamid(rs.getInt(2));
+				grade.setFlagid(rs.getInt(3));
+				grade.setRank(rs.getInt(4));
+				grade.setGtime(rs.getString(5));
+				grade.setPath(rs.getString(6));
+				grade.setCheck(rs.getInt(7));
+			}
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (Exception e2) {
+				}
+		}
+		return grade;
+	}
+	//根据flagid获取flag排名
+	public Integer getCountByFlagid(Integer id){
+		String sql = "select count(*)+1 from grade where flagid=?";
+		int i=0;
+		try {
+			conn = dbUtil.getConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id.intValue());
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()){
+				i=rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+		}
+		return i;
+	}
+	
+	public List<GradeBean> getAll(){
+		List<GradeBean> ls = new ArrayList<GradeBean>();
+		String sql="select * from grade";
+		GradeBean grade = null;
+		try {
+			conn=dbUtil.getConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+//			pstmt.setInt(1, teamid.intValue());
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()){
+				grade=new GradeBean();
+				grade.setId(rs.getInt(1));
+				grade.setTeamid(rs.getInt(2));
+				grade.setFlagid(rs.getInt(3));
+				grade.setRank(rs.getInt(4));
+				grade.setGtime(rs.getString(5));
+				grade.setPath(rs.getString(6));
+				grade.setCheck(rs.getInt(7));
+				ls.add(grade);
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(conn!=null){
+				try {
+					conn.close();
+				} catch (Exception e2) {
+				}
+			}
+		}
+		return ls;
+	}
+}

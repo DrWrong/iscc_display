@@ -10,15 +10,15 @@ BASE_DIR = os.path.dirname(__file__)
 @route('/')
 @view("test")
 def index():
-    r = requests.get("http://10.15.0.61:8080/api.html")
-    jsondict = r.json()
-    hostinfo = jsondict["hosts"]
+    # r = requests.get("http://10.15.0.61:8080/api.html")
+    # jsondict = r.json()
+    # hostinfo = jsondict["hosts"]
     # hostinfo.sort(key=lambda x:x["id"])
-    flaglist = ["flag0.png" for i in range(28)]
-    for eachhost in hostinfo:
-        flaglist[eachhost["id"] - 1] = "flag%d.png" % eachhost["tid"]
+    flaglist = ["flag1.png" for i in range(28)]
+    # for eachhost in hostinfo:
+    #     flaglist[eachhost["id"] - 1] = "flag%d.png" % eachhost["tid"]
     # flaglist = ["flag2.png" for i in range(28)]
-    print(flaglist)
+    # print(flaglist)
     return dict(flaglist=flaglist)
 
 
