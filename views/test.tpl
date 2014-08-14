@@ -2,32 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="5">
+    <!-- <meta http-equiv="refresh" content="5"> -->
     <title>Document</title>
 
     <script type="text/javascript" src="/static/zrender-master/doc/asset/js/esl/esl.js"></script>
 
-    <script>
-        var audioElement = document.createElement('audio');
-        audioElement.setAttribute('src', 'http://localhost/static/v.mp3');
-        function PlayAudio()
-        {
-            audioElement.load;
-            audioElement.play();
-        }
-    </script>
-    <script type="text/javascript">
-        // function websocket(){
-        var websocket = new WebSocket("ws://localhost/websocket");
-        websocket.onopen = function(){
-        };
-        websocket.onmessage = function(evt){
-            PlayAudio();
-            location.reload();
-        };
 
-        // websocket.close()
-    </script>
 
 </head>
 <body style="background: black; overflow: hidden">
@@ -491,5 +471,34 @@
         // };
         </script>
      <div id="Main" style="width:4000px;height:2143px; margin: auto;"></div>
+
+    <script>
+        var audioElement = document.createElement('audio');
+        audioElement.setAttribute('src', '/static/v.mp3');
+        function PlayAudio()
+        {
+            audioElement.load;
+            audioElement.play();
+        }
+    </script>
+    <script type="text/javascript">
+        function sleep(sleepTime) {
+            for(var start = Date.now(); Date.now() - start <= sleepTime; ) { }
+        }
+        // function websocket(){
+        var websocket = new WebSocket("ws://10.15.0.8:8000/websocket");
+        websocket.onopen = function(){
+            console.log("socket start");
+            websocket.send("ok");
+        };
+        websocket.onmessage = function(evt){
+            // console.log(evt.data);
+            PlayAudio();
+            sleep(1000);
+            location.reload();
+        };
+
+        // websocket.close()
+    </script>
 </body>
 </html>
