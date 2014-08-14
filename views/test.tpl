@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="300">
+    <!-- <meta http-equiv="refresh" content="300"> -->
     <title>Document</title>
     <script type="text/javascript" src="/static/zrender-master/doc/asset/js/esl/esl.js"></script>
 </head>
 <body style="background: black; overflow: hidden">
     <!-- <canvas id="test" width="150", height="150"></canvas> -->
     <script type="text/javascript">
+
         require.config({
             packages: [{
                 name:  'zrender',
@@ -456,5 +457,21 @@
         })
         </script>
      <div id="Main" style="width:4000px;height:2143px; margin: auto;"></div>
+    <script>
+        var audioElement = document.createElement('audio');
+        audioElement.setAttribute('src', 'v.mp3');
+        function PlayAudio()
+        {
+            audioElement.load;
+            audioElement.play();
+        }
+    </script>
+     <script type="text/javascript">
+        var websocket = new WebSocket("ws://localhost:8080/websocket");
+        webscoket.onmessage = function(evt){
+            PlayAudio();
+            location.reload();
+        }
+     </script>
 </body>
 </html>
