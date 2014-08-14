@@ -50,4 +50,4 @@ def listen_for_event(ws):
         time.sleep(20)
 
 
-run(host="0.0.0.0", port=8080, debug=True, server=GeventWebSocketServer)
+run(host="0.0.0.0", port=80, debug=True, server=GeventWebSocketServer)
