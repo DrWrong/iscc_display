@@ -2,13 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- <meta http-equiv="refresh" content="300"> -->
+    <meta http-equiv="refresh" content="5">
     <title>Document</title>
+
     <script type="text/javascript" src="/static/zrender-master/doc/asset/js/esl/esl.js"></script>
+
+    <script>
+        var audioElement = document.createElement('audio');
+        audioElement.setAttribute('src', 'http://localhost/static/v.mp3');
+        function PlayAudio()
+        {
+            audioElement.load;
+            audioElement.play();
+        }
+    </script>
+    <script type="text/javascript">
+        // function websocket(){
+        var websocket = new WebSocket("ws://localhost/websocket");
+        websocket.onopen = function(){
+        };
+        websocket.onmessage = function(evt){
+            PlayAudio();
+            location.reload();
+        };
+
+        // websocket.close()
+    </script>
+
 </head>
 <body style="background: black; overflow: hidden">
     <!-- <canvas id="test" width="150", height="150"></canvas> -->
+
+
     <script type="text/javascript">
+
 
         require.config({
             packages: [{
@@ -455,23 +482,14 @@
             zr.addShape(flag28);
             zr.render();
         })
+        // var websocket = new WebSocket("ws://localhost/websocket");
+        // websocket.onopen = function(){
+        // };
+        // websocket.onmessage = function(evt){
+        //     PlayAudio();
+        //     location.reload();
+        // };
         </script>
      <div id="Main" style="width:4000px;height:2143px; margin: auto;"></div>
-    <script>
-        var audioElement = document.createElement('audio');
-        audioElement.setAttribute('src', '/static/v.mp3');
-        function PlayAudio()
-        {
-            audioElement.load;
-            audioElement.play();
-        }
-    </script>
-     <script type="text/javascript">
-        var websocket = new WebSocket("ws://localhost:8080/websocket");
-        webscoket.onmessage = function(evt){
-            PlayAudio();
-            location.reload();
-        }
-     </script>
 </body>
 </html>
