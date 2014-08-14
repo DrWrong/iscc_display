@@ -459,7 +459,7 @@
      <div id="Main" style="width:4000px;height:2143px; margin: auto;"></div>
     <script>
         var audioElement = document.createElement('audio');
-        audioElement.setAttribute('src', 'v.mp3');
+        audioElement.setAttribute('src', '/static/v.mp3');
         function PlayAudio()
         {
             audioElement.load;
